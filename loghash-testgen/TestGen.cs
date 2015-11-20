@@ -7,6 +7,7 @@ namespace loghash_testgen
     class TestGen
     {
         private const string TITLE_TAG = "#>";
+        private const string COMMENT_TAG = "\\\\";
 
         public void GenerateFromFile(string filePath, string outputDirectory)
         {
@@ -42,6 +43,9 @@ namespace loghash_testgen
                     currentTestCase.Content = enumerator.Current;
                     continue;
                 }
+
+                if (enumerator.Current.StartsWith(COMMENT_TAG) || string.IsNullOrWhiteSpace(enumerator.Current))
+                    continue;
 
                 currentTestCase.Json += enumerator.Current + Environment.NewLine;
 
